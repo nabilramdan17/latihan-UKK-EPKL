@@ -1,10 +1,6 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>{{ $judulHalaman }}</title>
-</head>
-<body>
-    {{ $judulHalaman }}
-</body>
-</html>
+@extends('layouts.app')
+@section('title', 'Daftar Perusahaan Mitra')
+@section('content')
+ <h1>Daftar Perusahaan Mitra PKL</h1>
+ <p>Halaman ini menampilkan seluruh perusahaan tempat siswa PKL.</p>
+@endsection
