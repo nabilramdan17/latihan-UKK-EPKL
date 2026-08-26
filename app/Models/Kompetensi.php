@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Perusahaan;
 
-class Perusahaan extends Model
+class Kompetensi extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama_perusahaan',
-        'alamat',
-        'telepon',
+        'nama_kompetensi',
+        'deskripsi',
     ];
 }

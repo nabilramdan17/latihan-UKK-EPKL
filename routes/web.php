@@ -1,50 +1,35 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\KompetensiController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// ==========================
+// HOME
+// ==========================
 
 Route::get('/', function () {
- return 'Selamat datang di Sistem E-PKL';
-});
+    return view('home');
+})->name('home');
 
-Route::get('/', function () {
- return 'Halaman Utama E-PKL';
-});
-Route::get('/tentang', function () {
- return 'Halaman ini berisi informasi tentang modul E-PKL sekolah.';
-});
 
-Route::get('/kontak', function () {
- return 'Hubungi guru pembimbing PKL di ruang RPL.';
-});
+// ==========================
+// CRUD SISWA
+// ==========================
 
-Route::get('/siswa/{nis}', function ($nis) {
- return 'Detail siswa PKL dengan NIS: ' . $nis;
-});
+Route::resource('siswa', SiswaController::class);
 
-Route::get('/siswa', function () {
- return 'Daftar siswa PKL';
-})->name('siswa.index');
 
-Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
- Route::get('/', [PerusahaanController::class, 'index'])->name('index');
+// ==========================
+// CRUD PERUSAHAAN
+// ==========================
 
- Route::get('/{id}', [PerusahaanController::class, 'show'])->name('show');
-});
+Route::resource('perusahaan', PerusahaanController::class);
 
-Route::get('/perusahaan', [PerusahaanController::class, 'index'])
-->name('perusahaan.index');
 
-Route::get('/perusahaan/{id}', [PerusahaanController::class, 'show'])
-->name('perusahaan.show');
+// ==========================
+// CRUD KOMPETENSI
+// ==========================
+
+Route::resource('kompetensi', KompetensiController::class);
