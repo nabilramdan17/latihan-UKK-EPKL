@@ -22,7 +22,7 @@
             </p>
 
             <p>
-                <strong>Telepon:</strong>
+                <strong>Jumlah perusahaan:</strong>
                 {{ $perusahaan->telepon }}
             </p>
 
