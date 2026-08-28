@@ -12,10 +12,19 @@
         </p>
     </div>
 
-    <a href="/" class="btn btn-outline-primary">
-        Kembali
-    </a>
+    <div>
+        <a href="{{ route('siswa.create') }}"
+           class="btn btn-primary">
+            + Tambah Siswa
+        </a>
+
+        <a href="/"
+           class="btn btn-outline-primary">
+            Kembali
+        </a>
+    </div>
 </div>
+
 
 <div class="card shadow-sm border-0">
     <div class="card-body">
@@ -67,6 +76,10 @@
         </td>
 
         <td>
+        
+           <a href="{{ route('siswa.show', $item->id) }}" class="btn btn-info btn-sm">
+    Detail
+</a>
 
             <a href="{{ route('siswa.edit', $item->id) }}"
                class="btn btn-warning btn-sm">

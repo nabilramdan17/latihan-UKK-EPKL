@@ -14,11 +14,15 @@
         </p>
     </div>
 
-    <a href="{{ route('kompetensi.create') }}"
-       class="btn btn-primary">
+   <div class="d-flex justify-content-end gap-2 mb-4">
+    <a href="{{ route('kompetensi.create') }}" class="btn btn-primary">
         + Tambah Kompetensi
     </a>
 
+    <a href="{{ url('/') }}" class="btn btn-outline-primary">
+        Kembali
+    </a>
+</div>
 </div>
 
 {{-- Pesan sukses --}}
@@ -70,6 +74,13 @@
             </td>
 
             <td>
+
+
+               <a href="{{ route('kompetensi.show', $item->id) }}"
+                  class="btn btn-info btn-sm">
+                 Detail
+               </a>
+
                 <a href="{{ route('kompetensi.edit', $item->id) }}"
                    class="btn btn-warning btn-sm">
                     Edit

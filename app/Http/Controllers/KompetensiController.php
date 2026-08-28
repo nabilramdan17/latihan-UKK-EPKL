@@ -67,6 +67,18 @@ class KompetensiController extends Controller
             ->with('success', 'Kompetensi berhasil diperbarui.');
     }
 
+   public function show($id)
+{
+    $kompetensi = Kompetensi::findOrFail($id);
+
+    $judulHalaman = 'Detail Kompetensi';
+
+    return view('kompetensi.show', compact(
+        'kompetensi',
+        'judulHalaman'
+    ));
+}
+
     public function destroy($id)
     {
         $kompetensi = Kompetensi::findOrFail($id);

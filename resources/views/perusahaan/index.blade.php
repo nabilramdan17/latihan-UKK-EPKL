@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<<div class="d-flex justify-content-between align-items-center mb-4">
 
     <div>
         <h1 class="fw-bold">{{ $judulHalaman }}</h1>
@@ -14,9 +14,19 @@
         </p>
     </div>
 
-    <a href="/" class="btn btn-outline-primary">
-        Kembali
-    </a>
+    <div class="d-flex align-items-center gap-2">
+
+        <a href="{{ route('perusahaan.create') }}"
+           class="btn btn-primary">
+            + Tambah Perusahaan
+        </a>
+
+        <a href="/"
+           class="btn btn-outline-primary">
+            Kembali
+        </a>
+
+    </div>                  
 
 </div>
 
@@ -54,6 +64,12 @@
             <td>{{ $item->telepon }}</td>
 
             <td>
+
+
+            <a href="{{ route('perusahaan.show', $item->id) }}"
+   class="btn btn-info btn-sm">
+    Detail
+</a>
 
                 <a href="{{ route('perusahaan.edit', $item->id) }}"
                    class="btn btn-warning btn-sm">

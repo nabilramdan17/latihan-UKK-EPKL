@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Perusahaan;
 
 class Perusahaan extends Model
 {
@@ -14,5 +13,10 @@ class Perusahaan extends Model
         'nama_perusahaan',
         'alamat',
         'telepon',
+        'bidang_usaha',
+
     ];
+
+
+    
 }

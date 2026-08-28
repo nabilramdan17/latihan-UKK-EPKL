@@ -30,12 +30,14 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => 'required',
             'alamat' => 'required',
             'telepon' => 'required',
+            'bidang_usaha' => 'required',
         ]);
 
         Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat' => $request->alamat,
             'telepon' => $request->telepon,
+            'bidang_usaha' => $request->bidang_usaha,
         ]);
 
         return redirect()
@@ -56,6 +58,7 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => 'required',
             'alamat' => 'required',
             'telepon' => 'required',
+            'bidang_usaha' => 'required',
         ]);
 
         $perusahaan = Perusahaan::findOrFail($id);
@@ -64,6 +67,7 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat' => $request->alamat,
             'telepon' => $request->telepon,
+            'bidang_usaha' => $request->bidang_usaha,
         ]);
 
         return redirect()
@@ -81,4 +85,12 @@ class PerusahaanController extends Controller
             ->route('perusahaan.index')
             ->with('success', 'Data perusahaan berhasil dihapus.');
     }
+
+
+    public function show($id)
+{
+    $perusahaan = Perusahaan::findOrFail($id);
+
+    return view('perusahaan.show', compact('perusahaan'));
+}
 }
