@@ -6,17 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::table('kompetensis', function (Blueprint $table) {
-            $table->string('nama_kompetensi')->after('id');
-        });
+        if (!Schema::hasColumn('kompetensis', 'nama_kompetensi')) {
+            Schema::table('kompetensis', function (Blueprint $table) {
+                $table->string('nama_kompetensi')->after('id');
+            });
+        }
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::table('kompetensis', function (Blueprint $table) {
-            $table->dropColumn('nama_kompetensi');
-        });
+        if (Schema::hasColumn('kompetensis', 'nama_kompetensi')) {
+            Schema::table('kompetensis', function (Blueprint $table) {
+                $table->dropColumn('nama_kompetensi');
+            });
+        }
     }
 };

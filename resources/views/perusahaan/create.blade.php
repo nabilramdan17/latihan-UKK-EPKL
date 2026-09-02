@@ -22,50 +22,49 @@
 
                     @csrf
 
-                   <div class="mb-3">
-    <label class="form-label">
-        Nama Perusahaan
-    </label>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Nama Perusahaan
+                        </label>
 
-    <input type="text"
-           name="nama_perusahaan"
-           class="form-control"
-           required>
-</div>
+                        <input type="text"
+                               name="nama_perusahaan"
+                               class="form-control"
+                               required>
+                    </div>
 
-<div class="mb-3">
-    <label class="form-label">
-        Alamat
-    </label>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Alamat
+                        </label>
 
-    <textarea name="alamat"
-              class="form-control"
-              rows="3"
-              required></textarea>
-</div>
+                        <textarea name="alamat"
+                                  class="form-control"
+                                  rows="3"
+                                  required></textarea>
+                    </div>
 
-<div class="mb-3">
-    <label class="form-label">
-        jumlah perusahaan
-    </label>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Jumlah Perusahaan
+                        </label>
 
-    <input type="text"
-           name="telepon"
-           class="form-control"
-           required>
-</div>
+                        <input type="number"
+                               name="jumlah_perusahaan"
+                               class="form-control"
+                               required>
+                    </div>
 
-<div class="mb-3">
-    <label class="form-label">
-        Bidang Usaha
-    </label>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Bidang Usaha
+                        </label>
 
-    <input type="text"
-           name="bidang_usaha"
-           class="form-control"
-           required>
-</div>
-
+                        <input type="text"
+                               name="bidang_usaha"
+                               class="form-control"
+                               required>
+                    </div>
 
                     <a href="{{ route('perusahaan.index') }}"
                        class="btn btn-secondary">

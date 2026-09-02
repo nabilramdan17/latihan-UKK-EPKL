@@ -14,27 +14,32 @@
         </p>
     </div>
 
-   <div class="d-flex justify-content-end gap-2 mb-4">
-    <a href="{{ route('kompetensi.create') }}" class="btn btn-primary">
-        + Tambah Kompetensi
-    </a>
+    <div class="d-flex gap-2">
+        <a href="{{ route('kompetensi.create') }}" class="btn btn-primary">
+            + Tambah Kompetensi
+        </a>
 
-    <a href="{{ url('/') }}" class="btn btn-outline-primary">
-        Kembali
-    </a>
-</div>
+        <a href="{{ url('/') }}" class="btn btn-outline-primary">
+            Kembali
+        </a>
+    </div>
+
 </div>
 
 {{-- Pesan sukses --}}
 @if (session('success'))
+
     <div class="alert alert-success alert-dismissible fade show">
+
         {{ session('success') }}
 
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="alert">
         </button>
+
     </div>
+
 @endif
 
 <div class="card shadow-sm border-0">
@@ -48,60 +53,97 @@
                 <thead class="table-warning">
 
                     <tr>
-                        <th>No</th>
+                        <th width="50">No</th>
                         <th>Nama Kompetensi</th>
                         <th>Deskripsi</th>
+                        <th width="130">Jumlah Siswa</th>
                         <th width="250">Aksi</th>
                     </tr>
 
                 </thead>
 
-              <tbody>
-    @foreach ($kompetensi as $item)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
+                <tbody>
 
-            <td>
-                <strong>{{ $item->nama_kompetensi }}</strong>
+                    @forelse ($kompetensi as $item)
 
-                @if ($item->nama_kompetensi == 'Pemrograman Web')
-                    <span class="badge bg-primary">Unggulan</span>
-                @endif
-            </td>
+                        <tr>
 
-            <td>
-                {{ $item->deskripsi }}
-            </td>
+                            {{-- No --}}
+                            <td>
+                                {{ $loop->iteration }}
+                            </td>
 
-            <td>
+                            {{-- Nama Kompetensi --}}
+                            <td>
+                                <strong>
+                                    {{ $item->nama_kompetensi }}
+                                </strong>
 
+                                @if ($item->nama_kompetensi == 'Pemrograman Web')
 
-               <a href="{{ route('kompetensi.show', $item->id) }}"
-                  class="btn btn-info btn-sm">
-                 Detail
-               </a>
+                                    <span class="badge bg-primary">
+                                        Unggulan
+                                    </span>
 
-                <a href="{{ route('kompetensi.edit', $item->id) }}"
-                   class="btn btn-warning btn-sm">
-                    Edit
-                </a>
+                                @endif
+                            </td>
 
-                <form action="{{ route('kompetensi.destroy', $item->id) }}"
-                      method="POST"
-                      style="display:inline;"
-                      onsubmit="return confirm('Yakin ingin menghapus kompetensi ini?')">
+                            {{-- Deskripsi --}}
+                            <td>
+                                {{ $item->deskripsi }}
+                            </td>
 
-                    @csrf
-                    @method('DELETE')
+                            {{-- Jumlah Siswa --}}
+                            <td>
+                                <span class="badge bg-primary">
+                                    {{ $item->siswa->count() }} Siswa
+                                </span>
+                            </td>
 
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Hapus
-                    </button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</tbody>
+                            {{-- Aksi --}}
+                            <td class="text-nowrap">
+
+                                <a href="{{ route('kompetensi.show', $item->id) }}"
+                                   class="btn btn-info btn-sm">
+                                    Detail
+                                </a>
+
+                                <a href="{{ route('kompetensi.edit', $item->id) }}"
+                                   class="btn btn-warning btn-sm ms-1">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('kompetensi.destroy', $item->id) }}"
+                                      method="POST"
+                                      class="d-inline">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm ms-1"
+                                            onclick="return confirm('Yakin ingin menghapus kompetensi ini?')">
+                                        Hapus
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="5"
+                                class="text-center text-muted py-4">
+                                Belum ada data kompetensi.
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
 
             </table>
 

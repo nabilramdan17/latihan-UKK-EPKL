@@ -9,106 +9,140 @@
 <div class="card shadow-sm">
     <div class="card-body">
 
-        <form action="{{ route('siswa.update', $siswa->id) }}"
-              method="POST">
+```
+    <form action="{{ route('siswa.update', $siswa->id) }}"
+          method="POST">
 
-            @csrf
-            @method('PUT')
+        @csrf
+        @method('PUT')
 
-            <div class="mb-3">
-                <label class="form-label">NIS</label>
+        <div class="mb-3">
+            <label class="form-label">NIS</label>
 
-                <input type="text"
-                       name="nis"
-                       class="form-control"
-                       value="{{ $siswa->nis }}"
-                       required>
-            </div>
+            <input type="text"
+                   name="nis"
+                   class="form-control"
+                   value="{{ $siswa->nis }}"
+                   required>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Nama Siswa</label>
+        <div class="mb-3">
+            <label class="form-label">Nama Siswa</label>
 
-                <input type="text"
-                       name="nama"
-                       class="form-control"
-                       value="{{ $siswa->nama }}"
-                       required>
-            </div>
+            <input type="text"
+                   name="nama"
+                   class="form-control"
+                   value="{{ $siswa->nama }}"
+                   required>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Kelas</label>
+        <div class="mb-3">
+            <label class="form-label">Kelas</label>
 
-                <input type="text"
-                       name="kelas"
-                       class="form-control"
-                       value="{{ $siswa->kelas }}"
-                       required>
-            </div>
+            <input type="text"
+                   name="kelas"
+                   class="form-control"
+                   value="{{ $siswa->kelas }}"
+                   required>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Tanggal Mulai PKL
-                </label>
+        {{-- Tanggal Mulai PKL --}}
+        <div class="mb-3">
+            <label class="form-label">
+                Tanggal Mulai
+            </label>
 
-                <input type="date"
-                       name="tanggal_mulai_pkl"
-                       class="form-control"
-                       value="{{ $siswa->tanggal_mulai_pkl }}"
-                       required>
-            </div>
+            <input type="date"
+                   name="tanggal_mulai_pkl"
+                   class="form-control"
+                   value="{{ $siswa->tanggal_mulai_pkl }}"
+                   required>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Tanggal Selesai PKL
-                </label>
+        {{-- Tanggal Selesai PKL --}}
+        <div class="mb-3">
+            <label class="form-label">
+                Tanggal Selesai
+            </label>
 
-                <input type="date"
-                       name="tanggal_selesai_pkl"
-                       class="form-control"
-                       value="{{ $siswa->tanggal_selesai_pkl }}"
-                       required>
-            </div>
+            <input type="date"
+                   name="tanggal_selesai_pkl"
+                   class="form-control"
+                   value="{{ $siswa->tanggal_selesai_pkl }}"
+                   required>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Perusahaan
-                </label>
+        {{-- Perusahaan --}}
+        <div class="mb-3">
+            <label class="form-label">
+                Perusahaan
+            </label>
 
-                <select name="perusahaan_id"
-                        class="form-select"
-                        required>
+            <select name="perusahaan_id"
+                    class="form-select"
+                    required>
 
-                    <option value="">
-                        -- Pilih Perusahaan --
+                <option value="">
+                    -- Pilih Perusahaan --
+                </option>
+
+                @foreach ($perusahaan as $item)
+
+                    <option value="{{ $item->id }}"
+                        {{ $siswa->perusahaan_id == $item->id ? 'selected' : '' }}>
+
+                        {{ $item->nama_perusahaan }}
+
                     </option>
 
-                    @foreach ($perusahaan as $item)
+                @endforeach
 
-                        <option value="{{ $item->id }}"
-                            {{ $siswa->perusahaan_id == $item->id ? 'selected' : '' }}>
+            </select>
+        </div>
 
-                            {{ $item->nama_perusahaan }}
+        {{-- Kompetensi --}}
+        <div class="mb-3">
+            <label class="form-label">
+                Kompetensi
+            </label>
 
-                        </option>
+            <select name="kompetensi_id"
+                    class="form-select"
+                    required>
 
-                    @endforeach
+                <option value="">
+                    -- Pilih Kompetensi --
+                </option>
 
-                </select>
-            </div>
+                @foreach ($kompetensi as $item)
 
-            <button type="submit"
-                    class="btn btn-primary">
-                Simpan Perubahan
-            </button>
+                    <option value="{{ $item->id }}"
+                        {{ $siswa->kompetensi_id == $item->id ? 'selected' : '' }}>
 
-            <a href="{{ route('siswa.index') }}"
-               class="btn btn-secondary">
-                Kembali
-            </a>
+                        {{ $item->nama_kompetensi }}
 
-        </form>
+                    </option>
 
-    </div>
+                @endforeach
+
+            </select>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary">
+            Simpan Perubahan
+        </button>
+
+        <a href="{{ route('siswa.index') }}"
+           class="btn btn-secondary">
+            Kembali
+        </a>
+
+    </form>
+
+</div>
+```
+
 </div>
 
 @endsection

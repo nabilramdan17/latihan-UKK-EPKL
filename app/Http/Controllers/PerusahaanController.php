@@ -29,20 +29,27 @@ class PerusahaanController extends Controller
         $request->validate([
             'nama_perusahaan' => 'required',
             'alamat' => 'required',
-            'telepon' => 'required',
+            'jumlah_perusahaan' => 'required',
             'bidang_usaha' => 'required',
         ]);
 
         Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
+            'jumlah_perusahaan' => $request->jumlah_perusahaan,
             'bidang_usaha' => $request->bidang_usaha,
         ]);
 
         return redirect()
             ->route('perusahaan.index')
             ->with('success', 'Perusahaan berhasil ditambahkan.');
+    }
+
+    public function show($id)
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        return view('perusahaan.show', compact('perusahaan'));
     }
 
     public function edit($id)
@@ -53,27 +60,27 @@ class PerusahaanController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_perusahaan' => 'required',
-            'alamat' => 'required',
-            'telepon' => 'required',
-            'bidang_usaha' => 'required',
-        ]);
+{
+    $request->validate([
+        'nama_perusahaan' => 'required',
+        'alamat' => 'required',
+        'jumlah_perusahaan' => 'required',
+        'bidang_usaha' => 'required',
+    ]);
 
-        $perusahaan = Perusahaan::findOrFail($id);
+    $perusahaan = Perusahaan::findOrFail($id);
 
-        $perusahaan->update([
-            'nama_perusahaan' => $request->nama_perusahaan,
-            'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
-            'bidang_usaha' => $request->bidang_usaha,
-        ]);
+    $perusahaan->update([
+        'nama_perusahaan' => $request->nama_perusahaan,
+        'alamat' => $request->alamat,
+        'jumlah_perusahaan' => $request->jumlah_perusahaan,
+        'bidang_usaha' => $request->bidang_usaha,
+    ]);
 
-        return redirect()
-            ->route('perusahaan.index')
-            ->with('success', 'Data perusahaan berhasil diperbarui.');
-    }
+    return redirect()
+        ->route('perusahaan.index')
+        ->with('success', 'Data perusahaan berhasil diperbarui.');
+}
 
     public function destroy($id)
     {
@@ -85,12 +92,4 @@ class PerusahaanController extends Controller
             ->route('perusahaan.index')
             ->with('success', 'Data perusahaan berhasil dihapus.');
     }
-
-
-    public function show($id)
-{
-    $perusahaan = Perusahaan::findOrFail($id);
-
-    return view('perusahaan.show', compact('perusahaan'));
-}
 }

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
     <div>
         <h1 class="fw-bold">{{ $judulHalaman }}</h1>
@@ -26,11 +26,12 @@
             Kembali
         </a>
 
-    </div>                  
+    </div>
 
 </div>
 
 <div class="card shadow-sm border-0">
+
     <div class="card-body">
 
         <div class="table-responsive">
@@ -42,67 +43,81 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Perusahaan</th>
-                        <th>Bidang Usaha</th>
+                        <th>Alamat</th>
                         <th>Jumlah Perusahaan</th>
+                        <th>Bidang Usaha</th>
                         <th>Aksi</th>
                     </tr>
 
                 </thead>
 
-               <tbody>
+                <tbody>
 
-    @foreach ($perusahaan as $item)
+                    @foreach ($perusahaan as $item)
 
-        <tr>
+                    <tr>
 
-            <td>{{ $loop->iteration }}</td>
+                        <td>
+                            {{ $loop->iteration }}
+                        </td>
 
-            <td>{{ $item->nama_perusahaan }}</td>
+                        <td>
+                            {{ $item->nama_perusahaan }}
+                        </td>
 
-            <td>{{ $item->alamat }}</td>
+                        <td>
+                            {{ $item->alamat }}
+                        </td>
 
-            <td>{{ $item->telepon }}</td>
+                        <td>
+                            {{ $item->jumlah_perusahaan }}
+                        </td>
 
-            <td>
+                        <td>
+                            {{ $item->bidang_usaha }}
+                        </td>
 
+                        <td>
 
-            <a href="{{ route('perusahaan.show', $item->id) }}"
-   class="btn btn-info btn-sm">
-    Detail
-</a>
+                            <a href="{{ route('perusahaan.show', $item->id) }}"
+                               class="btn btn-info btn-sm">
+                                Detail
+                            </a>
 
-                <a href="{{ route('perusahaan.edit', $item->id) }}"
-                   class="btn btn-warning btn-sm">
-                    Edit
-                </a>
+                            <a href="{{ route('perusahaan.edit', $item->id) }}"
+                               class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
 
-                <form action="{{ route('perusahaan.destroy', $item->id) }}"
-                      method="POST"
-                      style="display:inline"
-                      onsubmit="return confirm('Yakin ingin menghapus perusahaan ini?')">
+                            <form action="{{ route('perusahaan.destroy', $item->id) }}"
+                                  method="POST"
+                                  style="display:inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus perusahaan ini?')">
 
-                    @csrf
-                    @method('DELETE')
+                                @csrf
+                                @method('DELETE')
 
-                    <button type="submit"
-                            class="btn btn-danger btn-sm">
-                        Hapus
-                    </button>
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm">
+                                    Hapus
+                                </button>
 
-                </form>
+                            </form>
 
-            </td>
+                        </td>
 
-        </tr>
+                    </tr>
 
-    @endforeach
+                    @endforeach
 
-</tbody>    
+                </tbody>
+
             </table>
 
         </div>
 
     </div>
+
 </div>
 
 @endsection

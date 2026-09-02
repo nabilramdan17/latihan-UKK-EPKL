@@ -4,64 +4,85 @@
 
 @section('content')
 
-<h1 class="fw-bold mb-4">Edit Perusahaan</h1>
+<div class="container">
 
-<div class="card">
-    <div class="card-body">
+    <h1 class="fw-bold mb-4">Edit Perusahaan</h1>
 
-        <form action="{{ route('perusahaan.update', $perusahaan->id) }}"
-              method="POST">
+    <div class="card shadow-sm border-0">
 
-            @csrf
-            @method('PUT')
+        <div class="card-body">
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Nama Perusahaan
-                </label>
+            <form action="{{ route('perusahaan.update', $perusahaan->id) }}" method="POST">
 
-                <input type="text"
-                       name="nama_perusahaan"
-                       class="form-control"
-                       value="{{ $perusahaan->nama_perusahaan }}"
-                       required>
-            </div>
+                @csrf
+                @method('PUT')
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Alamat
-                </label>
+                <div class="mb-3">
+                    <label for="nama_perusahaan" class="form-label">
+                        Nama Perusahaan
+                    </label>
 
-                <textarea name="alamat"
-                          class="form-control"
-                          rows="3"
-                          required>{{ $perusahaan->alamat }}</textarea>
-            </div>
+                    <input type="text"
+                           name="nama_perusahaan"
+                           id="nama_perusahaan"
+                           class="form-control"
+                           value="{{ old('nama_perusahaan', $perusahaan->nama_perusahaan) }}"
+                           required>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    jumlah perusahaan
-                </label>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">
+                        Alamat
+                    </label>
 
-                <input type="text"
-                       name="telepon"
-                       class="form-control"
-                       value="{{ $perusahaan->telepon }}"
-                       required>
-            </div>
+                    <textarea name="alamat"
+                              id="alamat"
+                              class="form-control"
+                              rows="3"
+                              required>{{ old('alamat', $perusahaan->alamat) }}</textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary">
-                Simpan Perubahan
-            </button>
+                <div class="mb-3">
+                    <label for="jumlah_perusahaan" class="form-label">
+                        Jumlah Perusahaan
+                    </label>
 
-            <a href="{{ route('perusahaan.index') }}"
-               class="btn btn-secondary">
-                Kembali
-            </a>
+                    <input type="number"
+                           name="jumlah_perusahaan"
+                           id="jumlah_perusahaan"
+                           class="form-control"
+                           value="{{ old('jumlah_perusahaan', $perusahaan->jumlah_perusahaan) }}"
+                           required>
+                </div>
 
-        </form>
+                <div class="mb-3">
+                    <label for="bidang_usaha" class="form-label">
+                        Bidang Usaha
+                    </label>
+
+                    <input type="text"
+                           name="bidang_usaha"
+                           id="bidang_usaha"
+                           class="form-control"
+                           value="{{ old('bidang_usaha', $perusahaan->bidang_usaha) }}"
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Simpan Perubahan
+                </button>
+
+                <a href="{{ route('perusahaan.index') }}"
+                   class="btn btn-secondary">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
 
     </div>
+
 </div>
 
 @endsection

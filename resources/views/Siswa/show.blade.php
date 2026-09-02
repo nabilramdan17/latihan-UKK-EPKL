@@ -53,13 +53,22 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <th>Kompetensi</th>
+                        <td>
+                            {{ $siswa->kompetensi->nama_kompetensi ?? '-' }}
+                        </td>
+                    </tr>
+
                 </table>
 
-                <a href="{{ route('siswa.index') }}" class="btn btn-secondary">
+                <a href="{{ route('siswa.index') }}"
+                   class="btn btn-secondary">
                     Kembali
                 </a>
 
-                <a href="{{ route('siswa.edit', $siswa->id) }}" class="btn btn-warning">
+                <a href="{{ route('siswa.edit', $siswa->id) }}"
+                   class="btn btn-warning">
                     Edit
                 </a>
 
