@@ -44,7 +44,9 @@
                         <th>No</th>
                         <th>Nama Perusahaan</th>
                         <th>Alamat</th>
-                        <th>Jumlah Perusahaan</th>
+                         <th>Telepon</th>
+                          <th>Nama Pembimbing</th>
+                         <th>Jumlah Siswa</th>
                         <th>Bidang Usaha</th>
                         <th>Aksi</th>
                     </tr>
@@ -64,18 +66,22 @@
                         <td>
                             {{ $item->nama_perusahaan }}
                         </td>
+                        <td>{{ $item->alamat }}</td>
 
                         <td>
-                            {{ $item->alamat }}
+                             {{ $item->telepon ?? '-' }}
                         </td>
 
-                        <td>
-                            {{ $item->jumlah_perusahaan }}
-                        </td>
+                          <td>{{ $item->nama_pembimbing_industri }}</td>
+
 
                         <td>
-                            {{ $item->bidang_usaha }}
+                           <span class="badge bg-primary">
+                                 {{ $item->siswas_count }} Siswa
+                            </span>
                         </td>
+
+                        <td>{{ $item->bidang_usaha }}</td>
 
                         <td>
 

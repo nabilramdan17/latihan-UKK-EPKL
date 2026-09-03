@@ -9,14 +9,16 @@ class KompetensiController extends Controller
 {
     public function index()
     {
-        $kompetensi = Kompetensi::all();
+        $kompetensi = Kompetensi::withCount('siswa')
+            ->latest()
+            ->get();
 
         $judulHalaman = 'Daftar Kompetensi';
 
-        return view('kompetensi.index', compact(
-            'kompetensi',
-            'judulHalaman'
-        ));
+        return view(
+            'kompetensi.index',
+            compact('kompetensi', 'judulHalaman')
+        );
     }
 
     public function create()
@@ -27,8 +29,8 @@ class KompetensiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kompetensi' => 'required',
-            'deskripsi' => 'required',
+            'nama_kompetensi' => 'required|max:100',
+            'deskripsi' => 'nullable',
         ]);
 
         Kompetensi::create([
@@ -41,18 +43,36 @@ class KompetensiController extends Controller
             ->with('success', 'Kompetensi berhasil ditambahkan.');
     }
 
+    public function show($id)
+    {
+        $kompetensi = Kompetensi::with('siswa.perusahaan')
+            ->findOrFail($id);
+
+        $judulHalaman = 'Detail Kompetensi';
+
+        return view(
+            'kompetensi.show',
+            compact('kompetensi', 'judulHalaman')
+        );
+    }
+
     public function edit($id)
     {
         $kompetensi = Kompetensi::findOrFail($id);
 
-        return view('kompetensi.edit', compact('kompetensi'));
+        $judulHalaman = 'Edit Kompetensi';
+
+        return view(
+            'kompetensi.edit',
+            compact('kompetensi', 'judulHalaman')
+        );
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_kompetensi' => 'required',
-            'deskripsi' => 'required',
+            'nama_kompetensi' => 'required|max:100',
+            'deskripsi' => 'nullable',
         ]);
 
         $kompetensi = Kompetensi::findOrFail($id);
@@ -66,18 +86,6 @@ class KompetensiController extends Controller
             ->route('kompetensi.index')
             ->with('success', 'Kompetensi berhasil diperbarui.');
     }
-
-   public function show($id)
-{
-    $kompetensi = Kompetensi::findOrFail($id);
-
-    $judulHalaman = 'Detail Kompetensi';
-
-    return view('kompetensi.show', compact(
-        'kompetensi',
-        'judulHalaman'
-    ));
-}
 
     public function destroy($id)
     {

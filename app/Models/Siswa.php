@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Perusahaan;
 use App\Models\Kompetensi;
 
 class Siswa extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'nis',
         'nama',
@@ -17,7 +15,6 @@ class Siswa extends Model
         'tanggal_mulai_pkl',
         'tanggal_selesai_pkl',
         'perusahaan_id',
-        'kompetensi_id',
     ];
 
     public function perusahaan()
@@ -25,8 +22,13 @@ class Siswa extends Model
         return $this->belongsTo(Perusahaan::class);
     }
 
-    public function kompetensi()
-    {
-        return $this->belongsTo(Kompetensi::class);
-    }
+   public function kompetensi()
+{
+    return $this->belongsToMany(
+        Kompetensi::class,
+        'kompetensi_siswa',
+        'siswa_id',
+        'kompetensi_id'
+    );
+}
 }

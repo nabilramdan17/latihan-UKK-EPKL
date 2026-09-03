@@ -74,9 +74,13 @@
         <td>
             {{ $item->perusahaan->nama_perusahaan ?? '-' }}
         </td>
-        <td>
-    @if($item->kompetensi)
-        {{ $item->kompetensi->nama_kompetensi }}
+    <td>
+    @if($item->kompetensi->count() > 0)
+        @foreach($item->kompetensi as $kompetensi)
+            <span class="badge bg-primary">
+                {{ $kompetensi->nama_kompetensi }}
+            </span>
+        @endforeach
     @else
         <span class="text-muted">Belum dipilih</span>
     @endif

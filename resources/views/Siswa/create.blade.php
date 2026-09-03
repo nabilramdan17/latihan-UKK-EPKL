@@ -83,24 +83,32 @@
 </div>
 
 <div class="mb-3">
-    <label for="kompetensi_id" class="form-label">
+    <label class="form-label">
         Kompetensi
     </label>
 
-    <select name="kompetensi_id"
-            id="kompetensi_id"
-            class="form-select"
-            required>
+    @foreach ($kompetensi as $item)
 
-        <option value="">-- Pilih Kompetensi --</option>
+        <div class="form-check">
 
-        @foreach ($kompetensi as $item)
-            <option value="{{ $item->id }}">
+            <input 
+                type="checkbox" 
+                name="kompetensi[]" 
+                value="{{ $item->id }}" 
+                class="form-check-input" 
+                id="kompetensi{{ $item->id }}">
+
+            <label 
+                class="form-check-label" 
+                for="kompetensi{{ $item->id }}">
+
                 {{ $item->nama_kompetensi }}
-            </option>
-        @endforeach
 
-    </select>
+            </label>
+
+        </div>
+
+    @endforeach
 </div>
 
 <div class="mb-3">

@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 class PerusahaanController extends Controller
 {
     public function index()
-    {
-        $perusahaan = Perusahaan::all();
+{
+    $perusahaan = Perusahaan::withCount('siswas')->get();
 
-        $judulHalaman = 'Daftar Perusahaan';
+    $judulHalaman = 'Daftar Perusahaan';
 
-        return view('perusahaan.index', compact(
-            'perusahaan',
-            'judulHalaman'
-        ));
-    }
+    return view('perusahaan.index', compact(
+        'perusahaan',
+        'judulHalaman'
+    ));
+}
 
     public function create()
     {
@@ -27,17 +27,19 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_perusahaan' => 'required',
-            'alamat' => 'required',
-            'jumlah_perusahaan' => 'required',
-            'bidang_usaha' => 'required',
+            'nama_perusahaan' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'telepon' => 'nullable|string|max:20',
+            'bidang_usaha' => 'required|string|max:100',
+            'nama_pembimbing_industri' => 'nullable|string|max:100',
         ]);
 
         Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat' => $request->alamat,
-            'jumlah_perusahaan' => $request->jumlah_perusahaan,
+            'telepon' => $request->telepon,
             'bidang_usaha' => $request->bidang_usaha,
+            'nama_pembimbing_industri' => $request->nama_pembimbing_industri,
         ]);
 
         return redirect()
@@ -47,7 +49,7 @@ class PerusahaanController extends Controller
 
     public function show($id)
     {
-        $perusahaan = Perusahaan::findOrFail($id);
+        $perusahaan = Perusahaan::with('siswas')->findOrFail($id);
 
         return view('perusahaan.show', compact('perusahaan'));
     }
@@ -60,27 +62,29 @@ class PerusahaanController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'nama_perusahaan' => 'required',
-        'alamat' => 'required',
-        'jumlah_perusahaan' => 'required',
-        'bidang_usaha' => 'required',
-    ]);
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
 
-    $perusahaan = Perusahaan::findOrFail($id);
+        $request->validate([
+            'nama_perusahaan' => 'required|string|max:100',
+            'alamat' => 'required|string',
+            'telepon' => 'nullable|string|max:20',
+            'bidang_usaha' => 'required|string|max:100',
+            'nama_pembimbing_industri' => 'nullable|string|max:100',
+        ]);
 
-    $perusahaan->update([
-        'nama_perusahaan' => $request->nama_perusahaan,
-        'alamat' => $request->alamat,
-        'jumlah_perusahaan' => $request->jumlah_perusahaan,
-        'bidang_usaha' => $request->bidang_usaha,
-    ]);
+        $perusahaan->update([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'bidang_usaha' => $request->bidang_usaha,
+            'nama_pembimbing_industri' => $request->nama_pembimbing_industri,
+        ]);
 
-    return redirect()
-        ->route('perusahaan.index')
-        ->with('success', 'Data perusahaan berhasil diperbarui.');
-}
+        return redirect()
+            ->route('perusahaan.index')
+            ->with('success', 'Perusahaan berhasil diperbarui.');
+    }
 
     public function destroy($id)
     {
@@ -90,6 +94,6 @@ class PerusahaanController extends Controller
 
         return redirect()
             ->route('perusahaan.index')
-            ->with('success', 'Data perusahaan berhasil dihapus.');
+            ->with('success', 'Perusahaan berhasil dihapus.');
     }
 }

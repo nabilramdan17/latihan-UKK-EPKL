@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Perusahaan extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'nama_perusahaan',
-        'alamat',
-        'jumlah_perusahaan',
         'bidang_usaha',
+        'alamat',
+        'telepon',
+        'nama_pembimbing_industri',
     ];
+
+    public function siswas()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }

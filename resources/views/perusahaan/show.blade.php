@@ -21,10 +21,17 @@
                 {{ $perusahaan->alamat }}
             </p>
 
+
+        <div class="mb-3">
+    <strong>Telepon:</strong>
+    {{ $perusahaan->telepon ?? '-' }}
+</div>
+
             <p>
-                <strong>Jumlah perusahaan:</strong>
-                {{ $perusahaan->telepon }}
+                <strong>Nama Pembimbing:</strong>
+                {{ $perusahaan->nama_pembimbing_industri }}
             </p>
+
 
             <p>
                 <strong>Bidang Usaha:</strong>

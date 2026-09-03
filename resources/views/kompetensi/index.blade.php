@@ -94,11 +94,11 @@
                             </td>
 
                             {{-- Jumlah Siswa --}}
-                            <td>
-                                <span class="badge bg-primary">
-                                    {{ $item->siswa->count() }} Siswa
-                                </span>
-                            </td>
+                           <td>
+    <span class="badge bg-primary">
+        {{ $item->siswa_count }} Siswa
+    </span>
+</td>
 
                             {{-- Aksi --}}
                             <td class="text-nowrap">

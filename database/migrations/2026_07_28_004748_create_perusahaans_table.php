@@ -15,14 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('nama_perusahaan', 100);
-
-            $table->text('alamat');
-
-            $table->integer('jumlah_perusahaan');
-
             $table->string('bidang_usaha', 100);
-
-            $table->string('nama_pembimbing_industri', 100)->nullable();
+            $table->text('alamat');
+            $table->string('telepon', 20)->nullable();
 
             $table->timestamps();
         });

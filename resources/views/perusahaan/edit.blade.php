@@ -17,6 +17,7 @@
                 @csrf
                 @method('PUT')
 
+                {{-- Nama Perusahaan --}}
                 <div class="mb-3">
                     <label for="nama_perusahaan" class="form-label">
                         Nama Perusahaan
@@ -30,6 +31,7 @@
                            required>
                 </div>
 
+                {{-- Alamat --}}
                 <div class="mb-3">
                     <label for="alamat" class="form-label">
                         Alamat
@@ -42,19 +44,38 @@
                               required>{{ old('alamat', $perusahaan->alamat) }}</textarea>
                 </div>
 
+                {{-- Telepon --}}
                 <div class="mb-3">
-                    <label for="jumlah_perusahaan" class="form-label">
-                        Jumlah Perusahaan
+                    <label for="telepon" class="form-label">
+                        Telepon
                     </label>
 
-                    <input type="number"
-                           name="jumlah_perusahaan"
-                           id="jumlah_perusahaan"
+                    <input type="text"
+                           name="telepon"
+                           id="telepon"
                            class="form-control"
-                           value="{{ old('jumlah_perusahaan', $perusahaan->jumlah_perusahaan) }}"
+                           value="{{ old('telepon', $perusahaan->telepon) }}"
+                           placeholder="Contoh: 022-1234567">
+                </div>
+
+                
+                  <div class="mb-3">
+                    <label for="nama_pembimbing_industri" class="form-label">
+                        Nama Pembimbing
+                    </label>
+
+                    <input type="text"
+                           name="nama_pembimbing_industri"
+                           id="nama_pembimbing_industri"
+                           class="form-control"
+                           value="{{ old('nama_pembimbing_industri',
+                            $perusahaan->nama_pembimbing_industri) }}"
                            required>
                 </div>
 
+
+
+                {{-- Bidang Usaha --}}
                 <div class="mb-3">
                     <label for="bidang_usaha" class="form-label">
                         Bidang Usaha

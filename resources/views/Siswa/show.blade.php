@@ -53,13 +53,26 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <th>Kompetensi</th>
-                        <td>
-                            {{ $siswa->kompetensi->nama_kompetensi ?? '-' }}
-                        </td>
-                    </tr>
+                  <tr>
+    <th>Kompetensi</th>
+    <td>
+        @if($siswa->kompetensi->count() > 0)
 
+            @foreach($siswa->kompetensi as $kompetensi)
+                <span class="badge bg-primary me-1">
+                    {{ $kompetensi->nama_kompetensi }}
+                </span>
+            @endforeach
+
+        @else
+
+            <span class="text-muted">
+                Belum dipilih
+            </span>
+
+        @endif
+    </td>
+</tr>
                 </table>
 
                 <a href="{{ route('siswa.index') }}"

@@ -7,59 +7,63 @@ use App\Models\Perusahaan;
 use App\Models\Kompetensi;
 use Illuminate\Http\Request;
 
-
 class SiswaController extends Controller
 {
     // TAMPILKAN DATA SISWA
-   public function index()
-{
-    $siswa = Siswa::with([
-        'perusahaan',
-        'kompetensi'
-    ])->get();
+    public function index()
+    {
+        $siswa = Siswa::with([
+            'perusahaan',
+            'kompetensi'
+        ])->get();
 
-    $judulHalaman = 'Daftar Siswa';
+        $judulHalaman = 'Daftar Siswa';
 
-    return view('siswa.index', compact(
-        'siswa',
-        'judulHalaman'
-    ));
-}
+        return view(
+            'siswa.index',
+            compact('siswa', 'judulHalaman')
+        );
+    }
+
 
     // FORM TAMBAH SISWA
-   public function create()
+    public function create()
 {
     $perusahaan = Perusahaan::all();
     $kompetensi = Kompetensi::all();
 
-    return view('Siswa.create', compact(
+    return view('siswa.create', compact(
         'perusahaan',
         'kompetensi'
     ));
 }
 
+
     // SIMPAN SISWA BARU
-   public function store(Request $request)
+    public function store(Request $request)
 {
     $request->validate([
-        'nis' => 'required|unique:siswas,nis',
-        'nama' => 'required',
-        'kelas' => 'required',
+        'nis' => 'required|string|max:20|unique:siswas,nis',
+        'nama' => 'required|string|max:100',
+        'kelas' => 'required|string|max:30',
         'tanggal_mulai_pkl' => 'required|date',
         'tanggal_selesai_pkl' => 'required|date|after_or_equal:tanggal_mulai_pkl',
         'perusahaan_id' => 'required|exists:perusahaans,id',
-        'kompetensi_id' => 'required|exists:kompetensis,id',
+        'kompetensi' => 'nullable|array',
+        'kompetensi.*' => 'exists:kompetensis,id',
     ]);
 
-    Siswa::create([
+    $siswa = Siswa::create([
         'nis' => $request->nis,
         'nama' => $request->nama,
         'kelas' => $request->kelas,
         'tanggal_mulai_pkl' => $request->tanggal_mulai_pkl,
         'tanggal_selesai_pkl' => $request->tanggal_selesai_pkl,
         'perusahaan_id' => $request->perusahaan_id,
-        'kompetensi_id' => $request->kompetensi_id,
     ]);
+
+    // Simpan kompetensi siswa
+    $siswa->kompetensi()->sync($request->kompetensi ?? []);
 
     return redirect()
         ->route('siswa.index')
@@ -67,20 +71,19 @@ class SiswaController extends Controller
 }
 
     // FORM EDIT SISWA
-    public function edit($id)
+   public function edit($id)
 {
-    $siswa = Siswa::findOrFail($id);
+    $siswa = Siswa::with('kompetensi')->findOrFail($id);
 
     $perusahaan = Perusahaan::all();
-
     $kompetensi = Kompetensi::all();
 
-    return view('siswa.edit', compact(
-        'siswa',
-        'perusahaan',
-        'kompetensi'
-    ));
+    return view(
+        'siswa.edit',
+        compact('siswa', 'perusahaan', 'kompetensi')
+    );
 }
+
 
     // UPDATE DATA SISWA
    public function update(Request $request, $id)
@@ -92,11 +95,12 @@ class SiswaController extends Controller
         'tanggal_mulai_pkl' => 'required|date',
         'tanggal_selesai_pkl' => 'required|date|after_or_equal:tanggal_mulai_pkl',
         'perusahaan_id' => 'required|exists:perusahaans,id',
-        'kompetensi_id' => 'required|exists:kompetensis,id',
+        'kompetensi_id' => 'nullable|exists:kompetensis,id',
     ]);
 
     $siswa = Siswa::findOrFail($id);
 
+    // Update data siswa
     $siswa->update([
         'nis' => $request->nis,
         'nama' => $request->nama,
@@ -104,10 +108,18 @@ class SiswaController extends Controller
         'tanggal_mulai_pkl' => $request->tanggal_mulai_pkl,
         'tanggal_selesai_pkl' => $request->tanggal_selesai_pkl,
         'perusahaan_id' => $request->perusahaan_id,
-        'kompetensi_id' => $request->kompetensi_id,
     ]);
 
-     return redirect()
+    // Update kompetensi
+    if ($request->kompetensi_id) {
+        $siswa->kompetensi()->sync([
+            $request->kompetensi_id
+        ]);
+    } else {
+        $siswa->kompetensi()->detach();
+    }
+
+    return redirect()
         ->route('siswa.index')
         ->with('success', 'Data siswa berhasil diperbarui.');
 }
@@ -116,10 +128,17 @@ class SiswaController extends Controller
     // DETAIL SISWA
     public function show($id)
     {
-        $siswa = Siswa::with('perusahaan')->findOrFail($id);
+        $siswa = Siswa::with([
+            'perusahaan',
+            'kompetensi'
+        ])->findOrFail($id);
 
-        return view('Siswa.show', compact('siswa'));
+        return view(
+            'siswa.show',
+            compact('siswa')
+        );
     }
+
 
     // HAPUS SISWA
     public function destroy($id)
